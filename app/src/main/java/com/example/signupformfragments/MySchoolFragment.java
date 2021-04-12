@@ -6,11 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.signupformfragments.databinding.FragmentMySchoolBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -23,8 +27,7 @@ import org.w3c.dom.Text;
  */
 public class MySchoolFragment extends Fragment {
 
-    private MaterialButton buttonBack, buttonContinue;
-    private TextInputLayout schoolInput;
+    private FragmentMySchoolBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -37,38 +40,35 @@ public class MySchoolFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        buttonBack = view.findViewById(R.id.back_button_my_school);
-        buttonContinue = view.findViewById(R.id.continue_button_my_school);
-        schoolInput = view.findViewById(R.id.school_text_input);
-
-        buttonContinue.setOnClickListener(new View.OnClickListener() {
+        binding.schoolTextInput.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                swapFragment();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                binding.continueButtonMySchool.setBackgroundColor(requireActivity().getColor(R.color.continue_button_background_color));
+                binding.continueButtonMySchool.setEnabled(true);
             }
         });
 
-        buttonBack.setOnClickListener(new View.OnClickListener() {
+        binding.continueButtonMySchool.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                getFragmentManager().popBackStack();
+            public void onClick(View v) {
+                NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.destination_profile_fragment);
             }
         });
+
     }
 
-    public void swapFragment(){
-        Bundle bundle = new Bundle();
-        bundle.putString(Constant.EMAIL,requireArguments().get(Constant.EMAIL).toString());
-        bundle.putString(Constant.NAME,requireArguments().get(Constant.NAME).toString());
-        bundle.putString(Constant.BIRTHDAY,requireArguments().get(Constant.BIRTHDAY).toString());
-        bundle.putString(Constant.GENDER,requireArguments().get(Constant.GENDER).toString());
-        bundle.putString(Constant.SCHOOL,schoolInput.getEditText().getText().toString());
-        ProfileFragment profileFragment = ProfileFragment.newInstance();
-        profileFragment.setArguments(bundle);
-
-        int fragmentTransaction = getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container,profileFragment)
-                .addToBackStack(null).commit();
+    private void returnToGenderFragment() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_school_fragment_pop);
     }
 
     public static MySchoolFragment newInstance(){

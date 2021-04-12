@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/form_nav_graph">
+
+    <fragment
+        android:id="@+id/destination_email_fragment"
+        tools:layout="@layout/fragment_email">
+        <action
+            android:id="@+id/email_fragment_to_name_fragment"
+            app:destination="@id/destination_name_fragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/destination_name_fragment"
+        tools:layout="@layout/fragment_first_name">
+        <action
+            android:id="@+id/name_fragment_to_birthday_fragment"
+            app:destination="@id/destination_birthday_fragment"/>
+
+        <action android:id="@+id/action_name_fragment_pop"
+            app:popUpTo="@id/destination_name_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/destination_birthday_fragment"
+        tools:layout="@layout/fragment_birthday">
+        <action
+            android:id="@+id/birthday_fragment_to_gender_fragment"
+            app:destination="@id/destination_gender_fragment"/>
+
+        <action android:id="@+id/action_birthday_fragment_pop"
+            app:popUpTo="@id/destination_birthday_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/destination_gender_fragment"
+        tools:layout="@layout/fragment_iam">
+        <action
+            android:id="@+id/gender_fragment_to_school_fragment"
+            app:destination="@id/destination_school_fragment"/>
+
+        <action android:id="@+id/action_gender_fragment_pop"
+            app:popUpTo="@id/destination_gender_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/destination_school_fragment"
+        tools:layout="@layout/fragment_my_school">
+        <action
+            android:id="@+id/school_fragment_to_profile_fragment"
+            app:destination="@id/destination_birthday_fragment"/>
+
+        <action android:id="@+id/action_school_fragment_pop"
+            app:popUpTo="@id/destination_school_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/destination_profile_fragment"
+        tools:layout="@layout/fragment_profile">
+
+        <action android:id="@+id/action_profile_fragment_pop"
+            app:popUpTo="@id/destination_profile_fragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
+
+</navigation>

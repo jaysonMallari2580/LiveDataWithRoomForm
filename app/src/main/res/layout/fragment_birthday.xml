@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".BirthdayFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -17,14 +17,13 @@
             android:id="@+id/back_button_my_birthday"
             android:layout_width="@dimen/back_icon"
             android:layout_height="@dimen/back_icon"
-            android:gravity="center"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
             android:layout_margin="@dimen/app_margin"
-            app:icon="@drawable/ic_arrow_back_ios_black_24dp"
+            android:gravity="center"
             android:textSize="@dimen/cretate_account_button_font_size"
             app:cornerRadius="@dimen/continue_button_radius"
-            />
+            app:icon="@drawable/ic_arrow_back_ios_black_24dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
         <com.google.android.material.textview.MaterialTextView
@@ -33,27 +32,25 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/mountain_image_margin_left"
             android:layout_marginTop="@dimen/mountain_image_margin_top"
-            app:layout_constraintTop_toBottomOf="@+id/back_button_my_birthday"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="@string/my_birthday"
             android:textSize="@dimen/mountain_welcome_font"
             android:textStyle="bold"
-            android:text="@string/my_birthday"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/back_button_my_birthday" />
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/birthday"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/my_birthday"
             android:layout_margin="@dimen/text_input_layout_margin"
-            >
+            app:layout_constraintTop_toBottomOf="@+id/my_birthday">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/birthday_hint"
-                android:inputType="date"
-                />
+                android:inputType="date" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -63,10 +60,10 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/mountain_image_margin_left"
             android:layout_marginTop="@dimen/mountain_image_margin_top"
-            app:layout_constraintTop_toBottomOf="@+id/birthday"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:text="@string/my_birthday_input_hint"
             android:textSize="30dp"
-            android:text="@string/my_birthday_input_hint"/>
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/birthday" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/my_birthday_hint"
@@ -74,25 +71,25 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/mountain_image_margin_left"
             android:layout_marginTop="@dimen/mountain_image_margin_top"
-            app:layout_constraintTop_toBottomOf="@+id/my_birthday_big_hint"
+            android:text="@string/my_first_birthday"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:text="@string/my_first_birthday"/>
+            app:layout_constraintTop_toBottomOf="@+id/my_birthday_big_hint" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/continue_button_my_birthday"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/my_birthday_hint"
             android:layout_margin="@dimen/cretate_account_button_margin"
-            android:text="@string/my_continue"
+            android:backgroundTint="@color/continue_button_background_color_start"
+            android:enabled="false"
             android:padding="@dimen/cretate_account_button_padding"
-            android:textSize="@dimen/cretate_account_button_font_size"
-            android:backgroundTint="@color/continue_button_background_color"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            app:strokeColor="@color/white"
-            app:cornerRadius="@dimen/continue_button_radius"
+            android:text="@string/my_continue"
             android:textColor="@color/white"
-            />
+            android:textSize="@dimen/cretate_account_button_font_size"
+            app:cornerRadius="@dimen/continue_button_radius"
+            app:layout_constraintTop_toBottomOf="@+id/my_birthday_hint"
+            app:strokeColor="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

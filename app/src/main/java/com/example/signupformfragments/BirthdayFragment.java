@@ -2,15 +2,20 @@ package com.example.signupformfragments;
 
 import android.os.Bundle;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.signupformfragments.databinding.FragmentBirthdayBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -21,53 +26,58 @@ import com.google.android.material.textfield.TextInputLayout;
  */
 public class BirthdayFragment extends Fragment {
 
-    private MaterialButton button, backButton;
-    private TextInputLayout birthdayInput;
+   private FragmentBirthdayBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         return inflater.inflate(R.layout.fragment_birthday,container,false);
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        button= view.findViewById(R.id.continue_button_my_birthday);
-        backButton = view.findViewById(R.id.back_button_my_birthday);
-        birthdayInput = view.findViewById(R.id.birthday);
-
-        backButton.setOnClickListener(new View.OnClickListener() {
+        binding.birthday.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                getFragmentManager().popBackStack();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                binding.continueButtonMyBirthday.setBackgroundColor(requireActivity().getColor(R.color.continue_button_background_color));
+                binding.continueButtonMyBirthday.setEnabled(true);
             }
         });
 
-        button.setOnClickListener(new View.OnClickListener() {
+        binding.continueButtonMyBirthday.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                swapFragment();
+            public void onClick(View v) {
+                NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.destination_gender_fragment);
             }
         });
+
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                returnToNameFragment();
+            }
+        });
+
     }
 
-    public void swapFragment(){
-        Bundle bundle = new Bundle();
-        bundle.putString(Constant.BIRTHDAY,birthdayInput.getEditText().getText().toString());
-        bundle.putString(Constant.NAME,requireArguments().get(Constant.NAME).toString());
-        bundle.putString(Constant.EMAIL,requireArguments().get(Constant.EMAIL).toString());
-        IamFragment iamFragment = IamFragment.newInstance();
-        iamFragment.setArguments(bundle);
-
-        int fragmentTransaction = getFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container,iamFragment)
-                .addToBackStack(null)
-                .commit();
+    private void returnToNameFragment() {
+        NavHostFragment.findNavController(this).navigate(R.id.action_birthday_fragment_pop);
     }
+
+
+
 
     public static BirthdayFragment newInstance(){
         return new BirthdayFragment();

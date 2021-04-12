@@ -28,5 +28,6 @@
     <dimen name="profile_textSize">50sp</dimen>
     <dimen name="profile_name_margin">20dp</dimen>
     <dimen name="profile_textSize_age">40sp</dimen>
+    <dimen name="item_padding">10dp</dimen>
 
 </resources>

@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 
 public class MainActivity extends FragmentActivity {
 
@@ -20,16 +21,9 @@ public class MainActivity extends FragmentActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //display
-        displayFragment();
+
+        Navigation.findNavController(this,R.id.form_nav_graph)
+                .setGraph(R.navigation.form_nav_graph);
     }
 
-    public void displayFragment(){
-        EmailFragment emailFragment = EmailFragment.newInstance();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        fragmentTransaction.add(R.id.fragment_container,emailFragment).addToBackStack(null).commit();
-
-    }
 }

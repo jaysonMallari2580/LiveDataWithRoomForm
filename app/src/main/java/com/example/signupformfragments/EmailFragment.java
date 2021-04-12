@@ -6,11 +6,15 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.signupformfragments.databinding.FragmentEmailBinding;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -22,17 +26,12 @@ import com.google.android.material.textfield.TextInputLayout;
  */
 public class EmailFragment extends Fragment {
 
-    private MaterialButton button;
-    private TextInputLayout emailInput;
 
+    private FragmentEmailBinding binding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        // Inflate the layout for this fragment
-        // return inflater.inflate(R.layout.fragment_create_account, container, false);
-        //return the view
         return inflater.inflate(R.layout.fragment_email,container,false);
     }
 
@@ -40,34 +39,34 @@ public class EmailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        button = (MaterialButton) view.findViewById(R.id.continue_button_my_email);
-        emailInput = (TextInputLayout)view.findViewById(R.id.email);
-
-
-        button.setOnClickListener(new View.OnClickListener() {
+        binding.email.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View view) {
-                swapFragment();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                binding.continueButtonMyEmail.setBackgroundColor(requireActivity().getColor(R.color.continue_button_background_color));
+                binding.continueButtonMyEmail.setEnabled(true);
+            }
+        });
+
+
+        binding.continueButtonMyEmail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(requireParentFragment()).navigate(R.id.destination_name_fragment);
+            }
         });
 
     }
 
-    private void swapFragment(){
-        Bundle bundle = new Bundle();
-        bundle.putString(Constant.EMAIL,emailInput.getEditText().getText().toString());
-        FirstNameFragment nameFragment = FirstNameFragment.newInstance();
-        nameFragment.setArguments(bundle);
-
-
-        FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, nameFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-    }
 
 
     public static EmailFragment newInstance(){
